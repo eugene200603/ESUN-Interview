@@ -1,0 +1,8 @@
+package com.esun.esuninterview.models.services.products;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ProductService {
+
+}

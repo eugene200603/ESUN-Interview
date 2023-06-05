@@ -1,0 +1,9 @@
+package com.esun.esuninterview.models.beans.products;
+
+public class Product {
+
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

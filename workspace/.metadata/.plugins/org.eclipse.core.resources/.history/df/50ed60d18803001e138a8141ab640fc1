@@ -1,0 +1,5 @@
+package com.esun.esuninterview.models.repository.products;
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+}
