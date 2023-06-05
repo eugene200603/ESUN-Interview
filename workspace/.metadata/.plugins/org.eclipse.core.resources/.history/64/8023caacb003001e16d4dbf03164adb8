@@ -1,0 +1,29 @@
+package com.esun.esuninterview.models.services.products;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.esun.esuninterview.models.beans.products.Product;
+import com.esun.esuninterview.models.repository.products.ProductRepository;
+
+@Service
+public class ProductService {
+	@Autowired
+    private ProductRepository productRepository;
+	
+	public void addProduct(Product product) {
+		productRepository.save(product);
+	}
+	
+	public Product findProductById(Long id) {
+		Optional<Product> option = productRepository.findById(id);
+		
+		if(option.isEmpty()) {
+			return null;
+		}
+		
+		return option.get();
+	}
+}

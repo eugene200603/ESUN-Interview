@@ -4,16 +4,22 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Product")
 public class Product {
 	@Id
+	@GeneratedValue(generator = "product-id")
+    @GenericGenerator(name = "product-id", strategy = "com.esun.esuninterview.models.beans.products.ProductIdGenerator")
     @Column(name = "ProductID")
     private String productId;
 
+	
     @Column(name = "ProductName")
     private String productName;
 
@@ -21,7 +27,7 @@ public class Product {
     private BigDecimal price;
 
     @Column(name = "Quantity")
-    private int quantity;
+    private Integer quantity;
     
 	public Product() {
 	
@@ -51,13 +57,15 @@ public class Product {
 		this.price = price;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+
+	
 
 	
 }

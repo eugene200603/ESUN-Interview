@@ -1,0 +1,5 @@
+package com.esun.esuninterview.models.beans.products;
+
+public class ProductIdGenerator {
+
+}

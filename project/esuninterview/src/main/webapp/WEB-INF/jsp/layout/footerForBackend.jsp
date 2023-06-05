@@ -11,7 +11,7 @@
 		<div class="d-flex align-items-center justify-content-between small">
 			<div class="text-muted"></div>
 			<div>
-				<a >Java跨域工程師</a> &middot; <a> 第四組
+				<a >[新進人員]玉山銀行後端工程師-Java 實作題 </a> &middot; <a> 曹詠竣
 					</a>
 			</div>
 		</div>
