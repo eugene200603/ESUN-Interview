@@ -1,0 +1,26 @@
+package com.esun.esuninterview.models.beans.orders;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Order")
+public class Order {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String orderId;
+	private String memberId;
+	private int price;
+	private int payStatus;
+
+	public Order() {
+
+	}
+
+}

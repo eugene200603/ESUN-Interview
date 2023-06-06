@@ -7,8 +7,10 @@ import javax.persistence.Table;
 @Table(name = "Order")
 public class Order {
 
+
+
 	public Order() {
-		
+
 	}
 
 }
