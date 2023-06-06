@@ -1,0 +1,9 @@
+package com.esun.esuninterview.models.beans.orders;
+
+public class Order {
+
+	public Order() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

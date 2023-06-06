@@ -1,0 +1,22 @@
+package com.esun.esuninterview.models.beans.member;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Member")
+public class Member {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer memberId;
+
+	
+	@Column(name = "name", nullable = false)
+	private String memberName;
+
+}

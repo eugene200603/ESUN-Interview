@@ -7,12 +7,12 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <footer class="py-4 bg-light mt-auto">
-	<div class="container-fluid px-4">
+	<div class="container-fluidfoot px-4">
 		<div class="d-flex align-items-center justify-content-between small">
 			<div class="text-muted"></div>
 			<div>
-				<a >[新進人員]玉山銀行後端工程師-Java 實作題 </a> &middot; <a> 曹詠竣
-					</a>
+				<span>[新進人員]玉山銀行後端工程師-Java 實作題 </span> &middot; <span> 曹詠竣
+					</span>
 			</div>
 		</div>
 	</div>

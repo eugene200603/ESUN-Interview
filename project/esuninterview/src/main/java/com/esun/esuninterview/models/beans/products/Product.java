@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -20,7 +21,7 @@ public class Product {
     private String productId;
 
 	
-    @Column(name = "ProductName")
+    @Column(name = "ProductName", unique = true)
     private String productName;
 
     @Column(name = "Price")
@@ -28,6 +29,9 @@ public class Product {
 
     @Column(name = "Quantity")
     private Integer quantity;
+    
+    @Transient
+    private Integer increaseQuantity;
     
 	public Product() {
 	
@@ -63,6 +67,14 @@ public class Product {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public Integer getIncreaseQuantity() {
+		return increaseQuantity;
+	}
+
+	public void setIncreaseQuantity(Integer increaseQuantity) {
+		this.increaseQuantity = increaseQuantity;
 	}
 
 	

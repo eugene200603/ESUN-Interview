@@ -1,0 +1,14 @@
+package com.esun.esuninterview.models.repository.products;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.esun.esuninterview.models.beans.products.Product;
+
+public interface ProductRepository extends JpaRepository<Product, String> {
+	//檢查重複商品名稱
+	 @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Product p WHERE p.productName = :productName AND p.productId != :productId")
+    boolean duplicateProductName(@Param("productName") String productName, @Param("productId") String productId);
+
+}

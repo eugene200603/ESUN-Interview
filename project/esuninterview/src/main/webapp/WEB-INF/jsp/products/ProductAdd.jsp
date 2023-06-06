@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>新增商品</title>
+<link rel="stylesheet" type="text/css" href="${contextRoot}/assetsForBackend/css/form.css" />
 </head>
 <body class="sb-nav-fixed">
 	<!-- ======= Header ======= -->
@@ -26,15 +27,16 @@
 				<div class="container-fluid px-4">
 					<h1>商品管理-新增</h1>
 					<form:form modelAttribute="product" method="post"
-						action="${contextRoot}/Product/post">
+						action="${contextRoot}/ProductBack/post">
 						<form:label path="productName">商品名稱:</form:label>
-						<form:input  path="productName" />
+						<form:input  path="productName" required="required"/>
+						<span class="error-message">${errorMessage}</span>
 						<br>
 						<form:label path="price">售價:</form:label>
-						<form:input path="price" />
-						<br>
-						<form:label path="quantity">庫存:</form:label>
-						<form:input path="quantity" />
+						<form:input path="price" required="required"/>
+						<br>						
+						<form:label path="quantity">進庫數量:</form:label>
+						<form:input path="quantity" required="required"/>
 						<br>
 						<button type="submit">送出</button>
 					</form:form>
@@ -48,6 +50,7 @@
 		</div>
 	</div>
 
+	<!-- =============================== bootstrap ================================================= -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
@@ -57,5 +60,6 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="${contextRoot}/assetsForBackend/js/datatables-simple-demo.js"></script>
+	<!-- =================================== bootstrap ============================================= -->
 </body>
 </html>

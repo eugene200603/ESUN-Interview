@@ -1,6 +1,5 @@
 package com.esun.esuninterview.models.services.products;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -19,50 +18,56 @@ import com.esun.esuninterview.models.repository.products.ProductRepository;
 @Service
 public class ProductService {
 	@Autowired
-    private ProductRepository productRepository;
-	
+	private ProductRepository productRepository;
+
+
 	public void addProduct(Product product) {
-		productRepository.save(product);
+			productRepository.save(product);
 	}
-	
-	public Product findProductById(Long id) {
+
+	public Product findProductById(String id) {
 		Optional<Product> option = productRepository.findById(id);
-		
-		if(option.isEmpty()) {
+
+		if (option.isEmpty()) {
 			return null;
 		}
-		
+
 		return option.get();
 	}
-	
-	public Page<Product> findProductByPage(Integer pageNumber){
-		Pageable pgb = PageRequest.of(pageNumber-1, 3, Sort.Direction.DESC, "productId");
+
+	public Page<Product> findProductByPage(Integer pageNumber) {
+		Pageable pgb = PageRequest.of(pageNumber - 1, 3, Sort.Direction.DESC, "productId");
 		Page<Product> page = productRepository.findAll(pgb);
 		return page;
 	}
-	
-	
+
 	@Transactional
-	public Product updateProductById(Long id,Product newProduct) {
+	public Product updateProductById(String id, Product newProduct) {
 		Optional<Product> option = productRepository.findById(id);
-		
-		if(option.isPresent()) {
+
+		if (option.isPresent()) {
 			Product product = option.get();
+
+			Integer currentQuantity = product.getQuantity();
+			Integer increaseQuantity = newProduct.getIncreaseQuantity();
+			Integer updatedQuantity = currentQuantity + increaseQuantity;
 			product.setPrice(newProduct.getPrice());
 			product.setProductName(newProduct.getProductName());
-			product.setQuantity(newProduct.getQuantity());
+			product.setQuantity(updatedQuantity);
 			return product;
 		}
 		return null;
 	}
-	
-	public void deleteProductById(Long id) {
+
+	public void deleteProductById(String id) {
 		productRepository.deleteById(id);
 	}
-	
-	public List<Product> findAllProduct(){
-		List<Product> findAllProduct=productRepository.findAll();
+
+	public List<Product> findAllProduct() {
+		List<Product> findAllProduct = productRepository.findAll();
 		return findAllProduct;
 	}
+
 	
+
 }
