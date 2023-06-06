@@ -1,0 +1,23 @@
+package com.esun.esuninterview.models.beans.orders;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.hibernate.id.IdentifierGenerator;
+
+public class OrderIdGenerator implements IdentifierGenerator {
+	private static final String PREFIX = "Ms";
+	private static final String DATE_FORMAT = "yyyyMMdd";
+	private static final int SERIAL_NUMBER_LENGTH = 6;
+
+	private static AtomicInteger counter = new AtomicInteger(1);
+
+	public static String generateOrderNumber() {
+	        LocalDate currentDate = LocalDate.now();
+	        String datePart = currentDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+
+	        String serialNumberPart = String.format("%0" + SERIAL_NUMBER_LENGTH + "d", counter.getAndIncrement());
+
+	        return PREFIX + datePart + serialNumberPart;
+}

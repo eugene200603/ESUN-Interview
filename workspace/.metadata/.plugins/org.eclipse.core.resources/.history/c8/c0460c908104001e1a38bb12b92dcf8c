@@ -1,0 +1,8 @@
+package com.esun.esuninterview.models.services.orders;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderService {
+
+}

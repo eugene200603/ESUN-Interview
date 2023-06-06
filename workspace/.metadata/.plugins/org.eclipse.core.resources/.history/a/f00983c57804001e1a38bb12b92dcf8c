@@ -1,0 +1,48 @@
+package com.esun.esuninterview.models.beans.orders;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import com.esun.esuninterview.models.beans.member.Member;
+
+@Entity
+@Table(name = "Order")
+public class Order {
+	@Id
+    @GeneratedValue(generator = "custom-order-number")
+    @GenericGenerator(name = "custom-order-number", strategy = "com.example.CustomOrderNumberGenerator")
+    @Column(name = "OrderID")
+    private String orderId;
+
+    @ManyToOne
+    @JoinColumn(name = "MemberID", referencedColumnName = "memberID")
+    private Member member;
+
+    @Column(name = "Price")
+    private BigDecimal price;
+
+    @Column(name = "PayStatus")
+    private int payStatus;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetail> orderDetails;
+
+	public Order() {
+
+	}
+	
+	
+	
+
+}

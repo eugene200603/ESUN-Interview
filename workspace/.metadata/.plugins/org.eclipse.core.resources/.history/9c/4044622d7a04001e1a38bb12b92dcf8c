@@ -1,0 +1,10 @@
+package com.esun.esuninterview.models.repository.orders;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.esun.esuninterview.models.beans.products.Product;
+
+public interface OrderRepository extends JpaRepository<Product, String> {
+
+
+}

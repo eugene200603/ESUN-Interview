@@ -73,8 +73,8 @@ public class ProductController {
 //前台	
 	@GetMapping("/ProductList")
 	public String findAllProduct(Model model) {
-		List<Product> findAllProduct = productService.findAllProduct();
-		model.addAttribute("products", findAllProduct);
+		List<Product> findStockProduct = productService.findStockProduct();
+		model.addAttribute("products", findStockProduct);
 		return "/products/ProductList";
 	}
 	

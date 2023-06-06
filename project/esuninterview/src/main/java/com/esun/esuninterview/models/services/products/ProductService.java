@@ -20,9 +20,8 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 
-
 	public void addProduct(Product product) {
-			productRepository.save(product);
+		productRepository.save(product);
 	}
 
 	public Product findProductById(String id) {
@@ -68,6 +67,9 @@ public class ProductService {
 		return findAllProduct;
 	}
 
-	
+//庫存>0
+	public List<Product> findStockProduct() {
+		return productRepository.findByQuantityGreaterThan(0);
+	}
 
 }

@@ -1,0 +1,43 @@
+package com.esun.esuninterview.models.services.orders;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.esun.esuninterview.models.beans.orders.Order;
+import com.esun.esuninterview.models.beans.orders.OrderDetail;
+import com.esun.esuninterview.models.repository.orders.OrderRepository;
+
+@Service
+public class OrderService {
+	@Autowired
+	private OrderRepository orderRepository;
+
+	public Order createOrder(Order order) {
+		// 設定訂單的付款狀態為未付款
+		order.setPayStatus(0);
+
+		// 處理訂單相關邏輯，如計算總金額、庫存驗證等
+
+		// 設定訂單明細的訂單參考
+		for (OrderDetail orderDetail : order.getOrderDetails()) {
+			orderDetail.setOrder(order);
+		}
+
+		return orderRepository.save(order);
+	}
+
+	public Order getOrderById(String orderId) {
+		return orderRepository.findById(orderId).orElse(null);
+	}
+
+	public List<Order> getAllOrders() {
+		return orderRepository.findAll();
+	}
+
+	public void deleteOrder(String orderId) {
+		orderRepository.deleteById(orderId);
+	}
+
+}

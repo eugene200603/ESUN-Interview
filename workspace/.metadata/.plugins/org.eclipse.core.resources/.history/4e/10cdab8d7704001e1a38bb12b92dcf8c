@@ -1,0 +1,9 @@
+package com.esun.esuninterview.models.beans.orders;
+
+public class OrderDetail {
+
+	public OrderDetail() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

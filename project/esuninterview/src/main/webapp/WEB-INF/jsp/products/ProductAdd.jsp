@@ -36,8 +36,9 @@
 						<form:input path="price" required="required"/>
 						<br>						
 						<form:label path="quantity">進庫數量:</form:label>
-						<form:input path="quantity" required="required"/>
-						<br>
+						<form:input path="quantity" required="required" type="number" min="0" pattern="[0-9]+" value="0"/>
+						<br><br>
+						
 						<button type="submit">送出</button>
 					</form:form>
 				</div>

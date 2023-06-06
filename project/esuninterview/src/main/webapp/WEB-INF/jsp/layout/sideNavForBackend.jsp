@@ -72,7 +72,6 @@
 								data-bs-parent="#sidenavAccordion">
 								<nav class="sb-sidenav-menu-nested nav">
 									<a class="nav-link" href="${contextRoot}/ProductBack">商品管理</a>
-									<a class="nav-link" href="${contextRoot}/ProductBack/add">新增商品</a>
 								</nav>
 							</div>
 						</div>
