@@ -37,39 +37,27 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-// 		$(document).ready(function() {
-// 			$("#orderForm").submit(function(event) {
-// 				event.preventDefault();
-
-// 				let quantity = $("input[name='quantity']").val();
-// 				let productId = $("input[name='productId']").val();
-// 				let standPrice = $("input[name='standPrice']").val();
-// 				let jsonData = {
-// 					    "order": {
-// 					        "orderDetails": [{
-// 					            "quantity": quantity,
-// 					            "product": {
-// 					                "productId": productId,
-// 					                "price": standPrice
-// 					            }
-// 					        }]
-// 					    }
-// 					};
-
-// 				$.ajax({
-// 					url : "${contextRoot}/orders",
-// 					type : "POST",
-// 					data : JSON.stringify(jsonData),
-// 					contentType : "application/json",
-// 					success : function(response) {
-// 						alert("已加入訂單");
-// 					},
-// 					error : function(xhr, status, error) {
-// 						// 處理錯誤
-// 					}
-// 				});
-// 			});
-// 		});
+    $(document).ready(function() {
+        $("#orderForm").submit(function(event) {
+            event.preventDefault(); 
+            
+            // 使用AJAX提交表單
+            var form = $(this);
+            $.ajax({
+                type: form.attr("method"),
+                url: form.attr("action"),
+                data: form.serialize(),
+                success: function(response) {
+                    
+                    alert("成功加入訂單");
+                },
+                error: function() {
+                    
+                    alert("訂單建立失敗");
+                }
+            });
+        });
+    });
 </script>
 
 

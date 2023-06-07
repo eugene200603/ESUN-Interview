@@ -14,29 +14,28 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "Product")
 public class Product {
-	
-	//目前自訂義流水號會在伺服器重啟時重置,導致主鍵重複(尚未解決)
+
+	// 目前自訂義流水號會在伺服器重啟時重置,導致主鍵重複(尚未解決)
 	@Id
 	@GeneratedValue(generator = "product-id")
-    @GenericGenerator(name = "product-id", strategy = "com.esun.esuninterview.models.beans.products.ProductIdGenerator")
-    @Column(name = "ProductID")
-    private String productId;
+	@GenericGenerator(name = "product-id", strategy = "com.esun.esuninterview.models.beans.products.ProductIdGenerator")
+	@Column(name = "ProductID")
+	private String productId;
 
-	
-    @Column(name = "ProductName", unique = true)
-    private String productName;
+	@Column(name = "ProductName", unique = true)
+	private String productName;
 
-    @Column(name = "Price")
-    private BigDecimal price;
+	@Column(name = "Price")
+	private BigDecimal price;
 
-    @Column(name = "Quantity")
-    private Integer quantity;
-    
-    @Transient
-    private Integer increaseQuantity;
-    
+	@Column(name = "Quantity")
+	private Integer quantity;
+
+	@Transient
+	private Integer increaseQuantity;
+
 	public Product() {
-	
+
 	}
 
 	public String getProductId() {
@@ -79,8 +78,4 @@ public class Product {
 		this.increaseQuantity = increaseQuantity;
 	}
 
-
-	
-
-	
 }

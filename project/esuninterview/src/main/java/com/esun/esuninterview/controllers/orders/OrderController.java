@@ -1,6 +1,9 @@
 package com.esun.esuninterview.controllers.orders;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.esun.esuninterview.models.beans.orders.Order;
+import com.esun.esuninterview.models.beans.orders.OrderDetail;
 import com.esun.esuninterview.models.services.orders.OrderService;
 import com.esun.esuninterview.models.services.products.ProductService;
 
@@ -27,10 +30,26 @@ public class OrderController {
 	private ProductService productService;
 
 	@PostMapping("/orders")
-	public String createOrder(@ModelAttribute("order") Order order, Model model) {
+	public ResponseEntity<String> createOrder(@ModelAttribute("order") Order order, HttpServletRequest request, Model model) {
+	    String productId = request.getParameter("productId");
+	    BigDecimal standPrice = new BigDecimal(request.getParameter("standPrice"));
+	    int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+	    // 建立 OrderDetail 物件並設定商品編號、單價和數量
+	    OrderDetail orderDetail = new OrderDetail();
+	    orderDetail.setProduct(productService.findProductById(productId));
+	    orderDetail.setStandPrice(standPrice);
+	    orderDetail.setQuantity(quantity);
+
+	    // 將 OrderDetail 加入 Order 的 OrderDetails 列表
+	    order.getOrderDetails().add(orderDetail);
+
+	    // 呼叫 OrderService 的 createOrder 方法
 	    Order createdOrder = orderService.createOrder(order);
 	    model.addAttribute("createdOrder", createdOrder);
-	    return "orders/Order"; 
+	    
+	    return ResponseEntity.ok("成功加入訂單");
+	   
 	}
 
 	@GetMapping("/{orderId}")
@@ -49,12 +68,6 @@ public class OrderController {
 	    return "orders/Order"; 
 	}
 	
-	
-	@GetMapping
-	public ResponseEntity<List<Order>> getAllOrders() {
-		List<Order> orders = orderService.getAllOrders();
-		return ResponseEntity.ok(orders);
-	}
 
 	@DeleteMapping("/{orderId}")
 	public ResponseEntity<Void> deleteOrder(@PathVariable String orderId) {

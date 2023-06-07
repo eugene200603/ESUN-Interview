@@ -1,0 +1,39 @@
+package com.esun.esuninterview.models.beans.products;
+
+import java.io.Serializable;
+
+import javax.persistence.EntityManager;
+
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+
+
+public class ProductIdGenerator implements IdentifierGenerator {
+	
+	  // 注入 EntityManager
+    public ProductIdGenerator(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+	private static final String PREFIX = "P";
+	private static final int INITIAL_VALUE = 1;
+
+	@Override
+	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+		 String generatedId = null;
+		Integer currentCounter = productRepository.getMaxCounterValue();
+
+		if (currentCounter == null) {
+			currentCounter = INITIAL_VALUE;
+		} else {
+			currentCounter++;
+		}
+
+		generatedId = PREFIX + String.format("%03d", currentCounter);
+		
+
+		return generatedId;
+	}
+
+}

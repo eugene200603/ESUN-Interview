@@ -38,7 +38,7 @@
 						
 						<br>
 						<form:label path="price">售價:</form:label>
-						<form:input path="price" required="required"/>
+						<form:input path="price" required="required" type="number" min="0" pattern="[0-9]+" value="0"/>
 						<br>
 						<form:label path="quantity">目前庫存:</form:label>		
 						<input type="text" value="${product.quantity}" readonly="readonly" />

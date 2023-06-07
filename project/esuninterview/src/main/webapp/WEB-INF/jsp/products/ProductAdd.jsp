@@ -33,7 +33,7 @@
 						<span class="error-message">${errorMessage}</span>
 						<br>
 						<form:label path="price">售價:</form:label>
-						<form:input path="price" required="required"/>
+						<form:input path="price" required="required" type="number" min="0" pattern="[0-9]+" value="0"/>
 						<br>						
 						<form:label path="quantity">進庫數量:</form:label>
 						<form:input path="quantity" required="required" type="number" min="0" pattern="[0-9]+" value="0"/>

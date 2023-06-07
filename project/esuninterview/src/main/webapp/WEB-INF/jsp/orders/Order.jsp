@@ -19,38 +19,26 @@
 	<jsp:include page="../layout/header.jsp"></jsp:include>
 	<!-- End Header -->
 	<main id="main">
-<div id="app">
-    <h1>訂單資訊</h1>
-    <ul>
-      <li v-for="order in orders" :key="order.orderId">
-        <h4>訂單編號：{{ order.orderId }}</h4>
-        <p>訂單價格：{{ order.price }}</p>
-        <p>付款狀態：{{ order.payStatus }}</p>
-      </li>
-    </ul>
-  </div>
+ <h1>訂單資訊</h1>
+    <table>
+        <tr>
+            <th>訂單編號</th>
+            <th>會員編號</th>
+            <th>訂單金額</th>
+            <th>付款狀態</th>
+        </tr>
+        <c:forEach items="${orders}" var="order">
+            <tr>
+                <td>${order.orderId}</td>
+                <td>${order.memberId}</td>
+                <fmt:formatNumber value="${order.price}" pattern="#元"
+			var="formattedPrice" />
+                <td>${formattedPrice}</td>
+                <td>${order.payStatus == 1 ? '已付款' : '未付款'}</td>
+            </tr>
+        </c:forEach>
+    </table>
 </main>
-  <script>
-    new Vue({
-      el: '#app',
-      data: {
-        orders: []
-      },
-      mounted() {
-        this.getOrders();
-      },
-      methods: {
-        getOrders() {
-          axios.get('${contextRoot}/OrderList')
-            .then(response => {
-              this.orders = response.data;
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        }
-      }
-    });
-  </script>
+  
 </body>
 </html>

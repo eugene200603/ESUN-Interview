@@ -1,0 +1,36 @@
+package com.esun.esuninterview.models.beans.products;
+
+import java.io.Serializable;
+
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.esun.esuninterview.models.repository.products.ProductRepository;
+
+public class ProductIdGenerator implements IdentifierGenerator {
+	@Autowired
+	private ProductRepository productRepository;
+
+	private static final String PREFIX = "P";
+	private static final int INITIAL_VALUE = 1;
+
+	@Override
+	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+		String generatedId;
+		Integer currentCounter = productRepository.getMaxCounterValue();
+
+		if (currentCounter == null) {
+			currentCounter = INITIAL_VALUE;
+		} else {
+			currentCounter++;
+		}
+
+		generatedId = PREFIX + String.format("%03d", currentCounter);
+		
+
+		return generatedId;
+	}
+
+}

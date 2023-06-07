@@ -1,0 +1,46 @@
+package com.esun.esuninterview.models.beans.products;
+
+import java.io.Serializable;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+
+
+public class ProductIdGenerator implements IdentifierGenerator {
+	
+	  // 注入 EntityManager
+    public ProductIdGenerator(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+	private static final String PREFIX = "P";
+	private static final int INITIAL_VALUE = 1;
+
+	@Override
+	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+		 String generatedId = null;
+		// 查詢最後一個流水號
+	        TypedQuery<String> query = entityManager.createQuery(
+	            "SELECT p.productId FROM Product p ORDER BY p.productId DESC", String.class);
+	        query.setMaxResults(1);
+	        String lastProductId = query.getSingleResult();
+
+	        if (lastProductId != null) {
+	            // 提取後面的流水號部分
+	            int currentCounter = Integer.parseInt(lastProductId.substring(1));
+	            int nextCounter = currentCounter + 1;
+	            generatedId = "P" + String.format("%03d", nextCounter);
+	        } else {
+	            // 第一個流水號
+	            generatedId = "P001";
+	        }
+		
+
+		return generatedId;
+	}
+
+}
