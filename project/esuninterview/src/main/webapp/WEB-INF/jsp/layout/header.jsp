@@ -69,7 +69,7 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="${contextRoot}/ProductList">購物中心</a></li>
-          <li><a href="${contextRoot}/working">點數</a></li>          
+          <li><a href="${contextRoot}/OrderList">訂單資訊</a></li>          
           <li><a href="${contextRoot}/working">會員中心</a></li>
           <li><a href="${contextRoot}/backend">後台</a></li>
         </ul>

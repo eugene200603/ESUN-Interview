@@ -1,0 +1,35 @@
+package com.esun.esuninterview.models.beans.products;
+
+import java.io.Serializable;
+
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+
+public class ProductIdGenerator implements IdentifierGenerator {
+	
+	private static final String PREFIX = "P";
+	
+	@Override
+	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+	    if (object instanceof Product) {
+	        Product product = (Product) object;
+
+	        // 從資料庫獲取現有的counter值
+	        int currentCounter = product.getCounter();
+
+	        String generatedId = PREFIX + String.format("%03d", currentCounter+1);
+
+	        // 更新counter值
+	        int nextCounter = currentCounter + 1;
+	        product.setCounter(nextCounter);
+
+	     
+	        
+	        
+	        return generatedId;
+	    }
+
+	    throw new IllegalArgumentException("Invalid object type for ProductIdGenerator");
+	}
+}

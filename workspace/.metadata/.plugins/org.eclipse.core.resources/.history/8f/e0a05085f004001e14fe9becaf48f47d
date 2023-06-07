@@ -1,0 +1,64 @@
+package com.esun.esuninterview.controllers.orders;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.esun.esuninterview.models.beans.orders.Order;
+import com.esun.esuninterview.models.services.orders.OrderService;
+import com.esun.esuninterview.models.services.products.ProductService;
+
+@Controller
+
+public class OrderController {
+	@Autowired
+	private OrderService orderService;
+
+	@Autowired
+	private ProductService productService;
+
+	@PostMapping
+	public String createOrder(@ModelAttribute("order") Order order, Model model) {
+	    Order createdOrder = orderService.createOrder(order);
+	    model.addAttribute("createdOrder", createdOrder);
+	    return "orders/Order"; 
+	}
+
+	@GetMapping("/{orderId}")
+	public ResponseEntity<Order> getOrderById(@PathVariable String orderId) {
+		Order order = orderService.getOrderById(orderId);
+		if (order == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(order);
+	}
+
+	@GetMapping("/OrderList")
+	public String showAllOrders(Model model) {
+	    List<Order> orders = orderService.getAllOrders();
+	    model.addAttribute("orders", orders);
+	    return "Order"; 
+	}
+	
+	
+	@GetMapping
+	public ResponseEntity<List<Order>> getAllOrders() {
+		List<Order> orders = orderService.getAllOrders();
+		return ResponseEntity.ok(orders);
+	}
+
+	@DeleteMapping("/{orderId}")
+	public ResponseEntity<Void> deleteOrder(@PathVariable String orderId) {
+		orderService.deleteOrder(orderId);
+		return ResponseEntity.noContent().build();
+	}
+}

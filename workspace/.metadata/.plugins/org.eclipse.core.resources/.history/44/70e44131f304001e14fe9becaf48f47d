@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>商品訂單</title>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>訂單資訊</h1>
+    <ul>
+      <li v-for="order in orders" :key="order.orderId">
+        <h4>訂單編號：{{ order.orderId }}</h4>
+        <p>訂單價格：{{ order.price }}</p>
+        <p>付款狀態：{{ order.payStatus }}</p>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        orders: []
+      },
+      mounted() {
+        this.getOrders();
+      },
+      methods: {
+        getOrders() {
+          axios.get('${contextRoot}/OrderList')
+            .then(response => {
+              this.orders = response.data;
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

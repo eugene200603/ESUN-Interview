@@ -1,0 +1,38 @@
+package com.esun.esuninterview.models.beans.orders;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+
+
+
+
+public class OrderIdGenerator implements IdentifierGenerator {
+    private static final String PREFIX = "Ms";
+    private static final String DATE_FORMAT = "yyyyMMdd";
+    private static final int SERIAL_NUMBER_LENGTH = 6;
+
+    @Override
+    public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+        if (object instanceof Order) {
+            Order order = (Order) object;
+            int currentCounter = order.getCounter() + 1;
+            order.setCounter(currentCounter);
+
+            LocalDate currentDate = LocalDate.now();
+            String datePart = currentDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+
+            String serialNumberPart = String.format("%0" + SERIAL_NUMBER_LENGTH + "d", currentCounter);
+
+            return PREFIX + datePart + serialNumberPart;
+        }
+
+        throw new IllegalArgumentException("Invalid object type for OrderIdGenerator");
+    }
+
+
+}

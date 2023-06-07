@@ -1,0 +1,53 @@
+package com.esun.esuninterview.models.beans.orders;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+import org.hibernate.query.Query;
+
+
+
+
+public class OrderIdGenerator implements IdentifierGenerator {
+    private static final String PREFIX = "Ms";
+    private static final String DATE_FORMAT = "yyyyMMdd";
+    private static final int SERIAL_NUMBER_LENGTH = 6;
+
+    @Override
+    public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+        Session hibernateSession = (Session) session;
+        Transaction transaction = null;
+        Integer counter = null;
+
+        try {
+            transaction = hibernateSession.beginTransaction();
+
+            // 透過資料庫查詢取得目前的 counter 值
+            Query<?> query = hibernateSession.createQuery("SELECT counter FROM CounterEntity");
+            counter = (Integer) query.uniqueResult();
+
+            // 更新 counter 值
+            query = hibernateSession.createQuery("UPDATE CounterEntity SET counter = counter + 1");
+            query.executeUpdate();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        LocalDate currentDate = LocalDate.now();
+        String datePart = currentDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+        String serialNumberPart = String.format("%0" + SERIAL_NUMBER_LENGTH + "d", counter);
+
+        return PREFIX + datePart + serialNumberPart;
+    }
+}

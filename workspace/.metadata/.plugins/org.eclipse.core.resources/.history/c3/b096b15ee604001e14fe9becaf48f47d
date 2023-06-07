@@ -1,0 +1,5 @@
+package com.esun.esuninterview.models.beans.orders.ordersDTO;
+
+public class OrderDTO {
+
+}

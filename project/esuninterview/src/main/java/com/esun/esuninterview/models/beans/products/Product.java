@@ -14,6 +14,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "Product")
 public class Product {
+	
+	//目前自訂義流水號會在伺服器重啟時重置,導致主鍵重複(尚未解決)
 	@Id
 	@GeneratedValue(generator = "product-id")
     @GenericGenerator(name = "product-id", strategy = "com.esun.esuninterview.models.beans.products.ProductIdGenerator")
@@ -76,6 +78,7 @@ public class Product {
 	public void setIncreaseQuantity(Integer increaseQuantity) {
 		this.increaseQuantity = increaseQuantity;
 	}
+
 
 	
 
